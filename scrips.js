@@ -1,18 +1,22 @@
-let order = [];
-let clickedOrder = [];
-let score = 0;
+/*
+    Ordem das cores por números
+    0- green
+    1- red
+    2- yellow
+    3- blue
+*/
 
-//0 - verde
-//1 - vermelho
-//2 - amarelo
-//3 - azul
+let order = []
+let clickedOrder = []
+let score = 0 
 
-const blue = document.querySelector('.blue');
-const red = document.querySelector('.red');
-const green = document.querySelector('.green');
-const yellow = document.querySelector('.yellow');
+const blue = document.querySelector('.blue-area')
+const red = document.querySelector('.red-area')
+const green = document.querySelector('.green-area')
+const yellow = document.querySelector('.yellow-area')
 
-//cria ordem aletoria de cores
+
+// Gerando ordem aleatória de cores
 let shuffleOrder = () => {
     let colorOrder = Math.floor(Math.random() * 4);
     order[order.length] = colorOrder;
@@ -20,88 +24,109 @@ let shuffleOrder = () => {
 
     for(let i in order) {
         let elementColor = createColorElement(order[i]);
-        lightColor(elementColor, Number(i) + 1);
+        lightColor(elementColor, Number(i) + 1)
     }
 }
 
-//acende a proxima cor
+// Destaca a próxima cor
 let lightColor = (element, number) => {
-    number = number * 500;
+    number = number * 500; 
     setTimeout(() => {
-        element.classList.add('selected');
+        element.classList.add('selected')
     }, number - 250);
     setTimeout(() => {
-        element.classList.remove('selected');
-    });
+        element.classList.remove('selected')
+    }, number + 250)
 }
 
-//checa se os botoes clicados são os mesmos da ordem gerada no jogo
+// Checagem do que foi clicado com a ordem de cores gerada
 let checkOrder = () => {
     for(let i in clickedOrder) {
         if(clickedOrder[i] != order[i]) {
-            gameOver();
+            gameOver()
             break;
         }
     }
-    if(clickedOrder.length == order.length) {
-        alert(`Pontuação: ${score}\nVocê acertou! Iniciando próximo nível!`);
-        nextLevel();
-    }
-}
+    if(clickedOrder.length == order.length){
 
-//funcao para o clique do usuario
+        alert(`Pontuação: ${score}\nVocê Acertou! Iniciando próximo nível`);
+        nextLevel()
+    }
+} 
+
+// Função para clique do usuário
 let click = (color) => {
-    clickedOrder[clickedOrder.length] = color;
-    createColorElement(color).classList.add('selected');
-    //console.log(color);
+    clickedOrder[clickedOrder.length] = color
+    createColorElement(color).classList.add('selected')
+
     setTimeout(() => {
-        createColorElement(color).classList.remove('selected');
-        checkOrder();
-    },250);
+        createColorElement(color).classList.remove('selected')
+        checkOrder()
+    }, 250)
+
 }
 
-//funcao que retorna a cor
+// função que retorna a cor
 let createColorElement = (color) => {
-    if(color == 0) {
-        return green;
+    if(color == 0 ) {
+        return green
     } else if(color == 1) {
-        return red;
-    } else if (color == 2) {
-        return yellow;
-    } else if (color == 3) {
-        return blue;
+        return red
+    } else if(color == 2) {
+        return yellow
+    } else if(color == 3) {
+        return blue 
     }
 }
 
-//funcao para proximo nivel do jogo
+// função próximo jogo
 let nextLevel = () => {
     score++;
-    shuffleOrder();
+    template(score -1)
+    shuffleOrder()
 }
 
-//funcao para game over
+// função game over
 let gameOver = () => {
-    alert(`Pontuação: ${score}!\nVocê perdeu o jogo!\nClique em OK para iniciar um novo jogo`);
-    order = [];
-    clickedOrder = [];
-
-    playGame();
+    alert(`Pontuação: ${score}!\nVocê perdeu!\nClique em Ok para reiniciar o jogo.`);
+    order = []
+    clickedOrder = []
+    playGame()
 }
 
-//funcao de inicio do jogo
 let playGame = () => {
-    alert('Bem vindo ao Gênesis! Iniciando novo jogo!');
-    score = 0;
+    alert('Iniciando novo jogo')
+    score = 0
 
-    nextLevel();
+    nextLevel()
 }
 
-//eventos de clique para as cores
-green.onclick = () => click(0);
-red.onclick = () => click(1);
-yellow.onclick = () => click(2);
-blue.onclick = () => click(3);
+green.onclick = () =>  click(0)
+red.onclick = () =>  click(1)
+yellow.onclick = () =>  click(2)
+blue.onclick = () =>  click(3)
+
+const start = document.querySelector('.start')
+start.addEventListener('click', playGame)
 
 
-//inicio do jogo
-playGame();
+const template = (value) => {
+    const html = `<p class="count">${value}</p>
+                <p>Score</p>`
+    removeElement()
+    scoreFunction(html)
+}
+
+const scoreFunction = (html) => {
+    const elementP = document.createElement('p')
+    elementP.innerHTML = `${html}`
+    const divScore = document.querySelector('.score')
+    divScore.appendChild(elementP)
+}
+
+const removeElement = () => {
+    const divScore = document.querySelector('.score')
+    while (divScore.firstChild) {
+        divScore.removeChild(divScore.firstChild)
+    }
+}

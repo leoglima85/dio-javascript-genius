@@ -1,49 +1,82 @@
-body{
+* {
     margin: 0;
-    background-color: aquamarine;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: rgb(285, 255, 239);
+    font-family: 'Press Start 2P', cursive;
+}
+
+button {
+    font-family: 'Press Start 2P', cursive;
+    padding: 25px;
+    background: aquamarine;
+    border: 6px solid #000;
+    border-radius: 999999px;
+}
+
+.count {
+    margin-bottom: 12px;
 }
 
 .main-game {
     height: 100vh;
     width: 100vw;
     display: flex;
-    justify-content: center;
+    justify-content: space-around;
     align-items: center;
 }
 
 .genius {
     display: grid;
-    grid-template-areas: 'verde vermelho' 
-    'amarelo azul';
+    grid-template-areas:'green-area red-area'
+    'yellow-area blue-area';
     grid-gap: 10px;
-    border: 1px solid white;
-    background-color: white;
+    border: 1px solid #fff;
+    background-color: #FFF;
     border-radius: 100%;
-    width: 400px;
-    height: 400px;
+    width: 600px;
+    height: 600px;
 }
 
-.blue{
-    background-color: blue;
-    grid-area: azul;
+.genius div{
+    border: 6px solid #000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.blue-area {
+    grid-area: blue-area;
+    background-color: #2121d6e1;
     border-bottom-right-radius: 100%;
+   
 }
-.red{
-    background-color: red;
-    grid-area: vermelho;
-    border-top-right-radius: 100%;
-}
-.yellow{
-    background-color: yellow;
-    grid-area: amarelo;
+
+.yellow-area {
+    grid-area: yellow-area;
+    background-color: #ffff00;
     border-bottom-left-radius: 100%;
+    
 }
-.green{
-    background-color: green;
-    grid-area: verde;
+
+.red-area {
+    grid-area: red-area;
+    background-color: #ff1010d7;
+    border-top-right-radius: 100%;
+    
+}
+
+.green-area {
+    grid-area: green-area;
+    background-color: #137513;
     border-top-left-radius: 100%;
+    
 }
 
 .selected {
     opacity: 0.5;
+    color: #fff;
 }
